@@ -1,14 +1,23 @@
 import streamlit as st
 import pandas as pd
 import joblib
+import os
 
 # ---------------- Page Config ----------------
 st.set_page_config(page_title="Casino Churn Predictor", layout="centered")
 
+# ---------------- Paths ----------------
+# Get the directory where app.py is located
+BASE_DIR = os.path.dirname(__file__)
+
 # ---------------- Load Model ----------------
-model = joblib.load('casino_churn_model.pkl')
-label_encoders = joblib.load('label_encoders.pkl')
-feature_columns = joblib.load('feature_columns.pkl')
+model_path = os.path.join(BASE_DIR, 'casino_churn_model.pkl')
+encoders_path = os.path.join(BASE_DIR, 'label_encoders.pkl')
+features_path = os.path.join(BASE_DIR, 'feature_columns.pkl')
+
+model = joblib.load(model_path)
+label_encoders = joblib.load(encoders_path)
+feature_columns = joblib.load(features_path)
 
 # ---------------- Dark Theme Colors ----------------
 bg_color = "#0b0c10"
@@ -29,7 +38,6 @@ body {{
     background: {bg_color};
     overflow-x:hidden;
 }}
-
 /* Floating casino elements */
 .casino-icon {{
     position: fixed;
@@ -44,7 +52,6 @@ body {{
     50% {{transform: translateY(-20vh) rotate(180deg);}}
     100% {{transform: translateY(100vh) rotate(360deg);}}
 }}
-
 /* Glassmorphic input card */
 .card {{
     background: {card_bg};
@@ -60,7 +67,6 @@ body {{
     from {{ box-shadow: 0 10px 25px rgba(0,0,0,0.45), 0 0 15px rgba(255,87,34,0.3); }}
     to {{ box-shadow: 0 10px 25px rgba(0,0,0,0.45), 0 0 30px rgba(255,87,34,0.6); }}
 }}
-
 /* Buttons */
 .stButton>button {{
     width: 100%;
@@ -79,7 +85,6 @@ body {{
     transform: translateY(-2px);
     box-shadow: 0 6px 18px rgba(0,0,0,0.4);
 }}
-
 /* Prediction Box */
 .predict-box {{
     padding: 20px;
@@ -91,24 +96,20 @@ body {{
     animation: slideUp 0.6s ease-out;
     box-shadow: 0 8px 20px rgba(0,0,0,0.35);
 }}
-
 .predict-leave {{
     background: linear-gradient(135deg, #ffcccc, #ff9999);
     color: #b71c1c;
     border: 2px solid #ff8a80;
 }}
-
 .predict-stay {{
     background: linear-gradient(135deg, #ccffcc, #99ff99);
     color: #1b5e20;
     border: 2px solid #81c784;
 }}
-
 @keyframes slideUp {{
     from {{ transform: translateY(20px); opacity: 0; }}
     to {{ transform: translateY(0); opacity: 1; }}
 }}
-
 /* Inputs */
 input, select {{
     border-radius: 12px !important;
@@ -123,7 +124,6 @@ input:focus, select:focus {{
     border-color: {border_color} !important;
     box-shadow: 0 0 12px {border_color};
 }}
-
 /* Footer */
 .footer {{
     margin-top: 40px;
