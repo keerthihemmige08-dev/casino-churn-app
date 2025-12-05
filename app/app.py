@@ -11,9 +11,9 @@ st.set_page_config(page_title="Casino Churn Predictor", layout="centered")
 BASE_DIR = os.path.dirname(__file__)
 
 # ---------------- Load Model ----------------
-model_path = os.path.join(BASE_DIR, 'casino_churn_model.pkl')
-encoders_path = os.path.join(BASE_DIR, 'label_encoders.pkl')
-features_path = os.path.join(BASE_DIR, 'feature_columns.pkl')
+model = joblib.load(os.path.join(BASE_DIR, 'casino_churn_model.pkl'))
+label_encoders = joblib.load(os.path.join(BASE_DIR, 'label_encoders.pkl'))
+feature_columns = joblib.load(os.path.join(BASE_DIR, 'feature_columns.pkl'))
 
 model = joblib.load(model_path)
 label_encoders = joblib.load(encoders_path)
